@@ -5,10 +5,5 @@
   background: rgb(159, 167, 197);
   width: 20%;
   min-height: 100vh;
-}
-.topics {
-  display: flex;
-  flex-direction: column;
-
-  justify-self: center;
+  padding: 10px;
 }

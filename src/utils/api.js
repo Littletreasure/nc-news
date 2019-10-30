@@ -43,3 +43,22 @@ export const getUsers = () => {
       return response.data.users;
     });
 };
+export const updateArticleVote = (id, vote) => {
+  return axios
+    .patch(`https://ruths-nc-news.herokuapp.com/api/articles/${id}`, {
+      inc_votes: vote
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
+export const updateCommentVote = (id, vote) => {
+  return axios
+    .patch(`https://ruths-nc-news.herokuapp.com/api/comments/${id}`, {
+      inc_votes: vote
+    })
+    .then(response => {
+      return response.data;
+    });
+};

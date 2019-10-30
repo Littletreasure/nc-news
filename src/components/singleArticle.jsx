@@ -3,6 +3,7 @@ import { Router, Link } from "@reach/router";
 import "../styles/singleArticle.css";
 import * as api from "../utils/api";
 import Comments from "./comments.jsx";
+import Voter from "./voter.jsx";
 
 class SingleArticle extends Component {
   state = {
@@ -47,10 +48,11 @@ class SingleArticle extends Component {
                     <button>View Comments</button>
                   </Link>
                 </div>
-                <div>
-                  <p>{article.votes} votes</p>
-                  <button>Vote</button>
-                </div>
+                <Voter
+                  type="article"
+                  id={this.state.article.article_id}
+                  votes={this.state.article.votes}
+                />
               </div>
             </div>
           )}

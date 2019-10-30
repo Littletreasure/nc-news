@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../styles/comments.css";
 import * as api from "../utils/api";
+import Voter from "./voter.jsx";
 
 class Comments extends Component {
   state = {
@@ -35,10 +36,11 @@ class Comments extends Component {
                   <div className="commentBody">
                     <p>Comment: {comment.body}</p>
                   </div>
-                  <div className="commentFooter">
-                    <p>{comment.votes} votes</p>
-                    <button>Vote</button>
-                  </div>
+                  <Voter
+                    type="comment"
+                    id={comment.comment_id}
+                    votes={comment.votes}
+                  />
                 </div>
               );
             })}
