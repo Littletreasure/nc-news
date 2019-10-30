@@ -1,0 +1,16 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 120vh;
+  background: rgb(180, 180, 209);
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.content {
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}

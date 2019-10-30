@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./styles/App.css";
 import { Router } from "@reach/router";
 import Header from "./components/header.jsx";
 import Topics from "./components/topics.jsx";
 import ArticleList from "./components/articleList.jsx";
 import SingleArticle from "./components/singleArticle.jsx";
-import Comments from "./components/comments.jsx";
 
 class App extends Component {
   render() {
@@ -18,8 +17,8 @@ class App extends Component {
             <Router>
               <ArticleList path="/" />
               <ArticleList path="/articles" />
-              <SingleArticle path="/articles/:id" />
-              <Comments path="/articles/:id/comments" />
+              <ArticleList path="/articles/topic/:topic" />
+              <SingleArticle path="/articles/:article_id/*" />
             </Router>
           </div>
         </div>

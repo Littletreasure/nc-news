@@ -1,44 +1,63 @@
 import React, { Component } from "react";
+import { Router, Link } from "@reach/router";
+import "../styles/singleArticle.css";
+import * as api from "../utils/api";
+import Comments from "./comments.jsx";
 
 class SingleArticle extends Component {
   state = {
-    article: {
-      article_id: 1,
-      title: "Living in the shadow of a great man",
-      body: "I find this existence challenging",
-      votes: 100,
-      topic: "mitch",
-      author: "butter_bridge",
-      created_at: "2018-11-15T12:21:54.171Z",
-      comment_count: "13"
-    }
+    article: {},
+    isLoading: true
   };
+
+  componentDidMount() {
+    api.getArticleById(this.props.article_id).then(article => {
+      this.setState({ article, isLoading: false });
+    });
+  }
+
   render() {
-    const { article } = this.state;
+    const { article, isLoading } = this.state;
     return (
       <div className="singleArticle">
-        <h2>Article</h2>
-        <div className="articleHeadings">
-          <div>
-            <p>Title: {article.title}</p>
-            <p>Date: {article.created_at}</p>
-          </div>
-          <div>
-            <p>Author: {article.author}</p>
-            <p>Topic: {article.topic}</p>
-          </div>
-          <p className="articleBody">{article.body}</p>
+        <div className="articleMain">
+          <h2>{article.title}</h2>
+          {isLoading ? (
+            <p className="loading">Loading ...</p>
+          ) : (
+            <div>
+              <div className="articleHeadings">
+                <div>
+                  <p>Author: {article.author}</p>
+                  <p>Date: {article.created_at}</p>
+                </div>
+                <div>
+                  <p></p>
+                  <p>Topic: {article.topic}</p>
+                </div>
+              </div>
+              <div className="articleBody">
+                <p>{article.body}</p>
+              </div>
+
+              <div className="articleFooter">
+                <div>
+                  <p>{article.comment_count} comments</p>
+                  <Link to={"comments"}>
+                    <button>View Comments</button>
+                  </Link>
+                </div>
+                <div>
+                  <p>{article.votes} votes</p>
+                  <button>Vote</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        <div className="articleFooter">
-          <div>
-            <p>{article.comment_count} comments</p>
-            <button>View Comments</button>
-          </div>
-          <div>
-            <p>{article.votes} votes</p>
-            <button>Vote</button>
-          </div>
-        </div>
+        <Router>
+          <Comments path="comments" />
+        </Router>
       </div>
     );
   }

@@ -1,13 +1,16 @@
 import React from "react";
-import "../App.css";
+import "../styles/header.css";
+import { Link } from "@reach/router";
 
 const Header = () => {
   return (
     <header className="header">
       <h1>NC-News</h1>
       <div>
-        <p>{new Date().toDateString()}</p>
-        <button>Home</button>
+        <p className="date">{new Date().toDateString()}</p>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
       </div>
     </header>
   );

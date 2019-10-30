@@ -1,0 +1,39 @@
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 10px;
+  background: rgb(238, 241, 248);
+}
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.comments h3 {
+  align-self: center;
+}
+.commentCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-style: solid;
+  margin: 10px;
+  border-color: rgb(126, 123, 125);
+  padding: 10px;
+}
+.commentBody {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: center;
+  width: 100%;
+}
+.commentFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.commentFooter button {
+  align-self: flex-start;
+}

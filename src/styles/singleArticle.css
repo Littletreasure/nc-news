@@ -1,0 +1,33 @@
+.singleArticle {
+  display: flex;
+  flex-direction: column;
+  /* align-items: stretch; */
+  justify-content: center;
+  background: rgb(180, 180, 209);
+}
+.articleMain {
+  padding: 0px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-style: solid;
+  margin: 10px;
+}
+.articleHeadings {
+  display: flex;
+  justify-content: space-between;
+}
+.articleMain h2 {
+  align-self: center;
+}
+.articleBody {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: center;
+  width: 100%;
+}
+.articleFooter {
+  display: flex;
+  justify-content: space-between;
+}
