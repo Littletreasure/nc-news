@@ -50,7 +50,10 @@ function DropDownBox(props) {
             <option value="">all</option>
             {props.authors.map(author => {
               return (
-                <option value={author.username}>{`${author.username}`}</option>
+                <option
+                  key={author.username}
+                  value={author.username}
+                >{`${author.username}`}</option>
               );
             })}
           </select>

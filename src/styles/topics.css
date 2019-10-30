@@ -7,3 +7,7 @@
   min-height: 100vh;
   padding: 10px;
 }
+
+.topics h4 {
+  align-self: center;
+}

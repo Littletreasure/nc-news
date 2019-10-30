@@ -62,3 +62,14 @@ export const updateCommentVote = (id, vote) => {
       return response.data;
     });
 };
+
+export const postTopic = (slug, desc) => {
+  return axios
+    .post("https://ruths-nc-news.herokuapp.com/api/topics", {
+      slug: slug,
+      description: desc
+    })
+    .then(response => {
+      return response.data;
+    });
+};
