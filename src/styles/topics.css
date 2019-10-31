@@ -8,6 +8,15 @@
   padding: 10px;
 }
 
-.topics h4 {
-  align-self: center;
+.link {
+  text-decoration: none;
+  font-size: 20px;
+  margin: 0;
+  margin-block: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.topics p {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
 }

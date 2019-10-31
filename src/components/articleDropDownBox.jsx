@@ -1,8 +1,7 @@
 import React from "react";
 
-function DropDownBox(props) {
+function ArticleDropDownBox(props) {
   const handleChange = event => {
-    console.log(event.target);
     if (event.target.id === "sortBy") {
       props.sortBy(event.target.value);
     } else if (event.target.name === "order") {
@@ -11,7 +10,7 @@ function DropDownBox(props) {
   };
 
   return (
-    <div className="dropDownBox">
+    <div className="articleDropDownBox">
       <div>
         <label>
           Sort by:
@@ -63,4 +62,4 @@ function DropDownBox(props) {
   );
 }
 
-export default DropDownBox;
+export default ArticleDropDownBox;

@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import "../styles/articleList.css";
 import { Link } from "@reach/router";
 import * as api from "../utils/api";
-import DropDownBox from "./dropDownBox";
+import ArticleDropDownBox from "./articleDropDownBox";
 
 class ArticleList extends Component {
   state = {
     articles: [],
-    users: [],
     isLoading: true,
     sort_by: "created_at",
     order: "desc",
@@ -17,10 +16,10 @@ class ArticleList extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { sort_by, order, author } = this.state;
     const { topic } = this.props;
-    const changesort = prevState.sort_by !== this.state.sort_by;
-    const changeorder = prevState.order !== this.state.order;
-    const filtertopic = prevProps.topic !== this.props.topic;
-    const filterauthor = prevState.author !== this.state.author;
+    const changesort = prevState.sort_by !== sort_by;
+    const changeorder = prevState.order !== order;
+    const filtertopic = prevProps.topic !== topic;
+    const filterauthor = prevState.author !== author;
     if (changesort || changeorder || filtertopic || filterauthor) {
       api.getArticles(sort_by, order, topic, author).then(articles => {
         this.setState({ articles, isLoading: false });
@@ -28,11 +27,9 @@ class ArticleList extends Component {
     }
   }
   componentDidMount() {
-    Promise.all([api.getArticles(), api.getUsers()]).then(
-      ([articles, users]) => {
-        this.setState({ articles, users, isLoading: false });
-      }
-    );
+    api.getArticles().then(articles => {
+      this.setState({ articles, isLoading: false });
+    });
   }
   changeAuthor = author => {
     this.setState({ author: author });
@@ -53,11 +50,11 @@ class ArticleList extends Component {
           <p className="loading">Loading ...</p>
         ) : (
           <div>
-            <DropDownBox
+            <ArticleDropDownBox
               sortBy={this.sortBy}
               changeOrder={this.changeOrder}
               changeAuthor={this.changeAuthor}
-              authors={this.state.users}
+              authors={this.props.users}
             />
             {articles.map(article => {
               return (
@@ -73,7 +70,7 @@ class ArticleList extends Component {
                   </div>
                   <div>
                     <p>Author: {article.author}</p>
-                    <p>Date: {article.created_at}</p>
+                    <p>Date: {new Date(article.created_at).toLocaleString()}</p>
                   </div>
                 </div>
               );

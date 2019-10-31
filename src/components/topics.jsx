@@ -29,19 +29,19 @@ class Topics extends Component {
         <h3>Topics</h3>
         {isLoading ? null : (
           <div className="topics">
+            <Link className="link" to="/articles">
+              <h4 key="all">all</h4>
+            </Link>
             {topics.map(topic => {
               return (
                 <div key={topic.slug}>
-                  <Link to={`/articles/topic/${topic.slug}`}>
+                  <Link className="link" to={`/articles/topic/${topic.slug}`}>
                     <h4>{topic.slug}</h4>
                   </Link>
                   <p>{topic.description}</p>
                 </div>
               );
             })}
-            <Link to="/articles">
-              <p key="all">all</p>
-            </Link>
           </div>
         )}
 

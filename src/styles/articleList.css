@@ -19,8 +19,9 @@
 .loading {
   align-self: center;
 }
-.dropDownBox {
+.articleDropDownBox {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 10px;
 }

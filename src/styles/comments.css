@@ -31,9 +31,19 @@
 }
 .commentFooter {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .commentFooter button {
   align-self: flex-start;
+}
+.commentButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete {
+  justify-self: self-end;
 }

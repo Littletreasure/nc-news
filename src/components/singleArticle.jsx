@@ -8,7 +8,8 @@ import Voter from "./voter.jsx";
 class SingleArticle extends Component {
   state = {
     article: {},
-    isLoading: true
+    isLoading: true,
+    commentChanged: false
   };
 
   componentDidMount() {
@@ -16,6 +17,27 @@ class SingleArticle extends Component {
       this.setState({ article, isLoading: false });
     });
   }
+  // commentChanged = () => {
+  //   this.setState({ commentChanged: true });
+  // };
+
+  updateCommentCount = num => {
+    const { comment_count } = this.state.article;
+    const newCount = parseInt(comment_count, 10) + num;
+    const newArticle = { ...this.state.article };
+    newArticle.comment_count = newCount;
+    this.setState({ article: newArticle });
+  };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { comment_count } = this.state.article;
+  //   const changecomment = prevState.article.comment_count !== comment_count;
+  //   if (changecomment) {
+  //     api.getArticleById(this.props.article_id).then(article => {
+  //       this.setState({ article, isLoading: false });
+  //     });
+  //   }
+  // }
 
   render() {
     const { article, isLoading } = this.state;
@@ -50,15 +72,20 @@ class SingleArticle extends Component {
                 </div>
                 <Voter
                   type="article"
-                  id={this.state.article.article_id}
-                  votes={this.state.article.votes}
+                  id={article.article_id}
+                  votes={article.votes}
                 />
               </div>
             </div>
           )}
         </div>
         <Router>
-          <Comments path="comments" />
+          <Comments
+            loggedInUser={this.props.loggedInUser}
+            path="comments"
+            article_id={article.article_id}
+            updateCommentCount={this.updateCommentCount}
+          />
         </Router>
       </div>
     );
