@@ -7,7 +7,6 @@ function CommentDropDownBox(props) {
     } else if (event.target.name === "order") {
       props.changeOrder(event.target.value);
     }
-    // } else props.changeAuthor(event.target.value);
   };
 
   return (
