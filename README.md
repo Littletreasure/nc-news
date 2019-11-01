@@ -11,8 +11,10 @@ These instructions will get you a copy of the project up and running on your loc
 # Setup Instructions
 
 Fork this repository to your own GitHub account. Clone your fork of this repository to your local machine and cd into it:
-$ git clone <your fork's URL>
-$ cd be_nc_news
+
+\$ git clone <your fork's URL>
+
+\$ cd nc_news
 
 Make sure you've navigated into the folder and install all dependencies using npm install. To run the project locally type npm start.
 
