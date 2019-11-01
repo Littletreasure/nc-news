@@ -18,7 +18,7 @@ class LoginForm extends Component {
     return (
       <form id="in" onSubmit={this.handleSubmit}>
         <input
-          placeholder="lurker"
+          placeholder="jessjelly"
           type="text"
           onChange={this.handleChange}
         ></input>
