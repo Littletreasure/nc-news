@@ -16,6 +16,8 @@ $ cd be_nc_news
 
 Make sure you've navigated into the folder and install all dependencies using npm install. To run the project locally type npm start.
 
-The React app is hosted by netlify and can be found here
+The React app is hosted by netlify and can be found here https://ruth-nc-news.netlify.com
+
 The back end app is hosted by Heroku and can be found here https://ruths-nc-news.herokuapp.com/api/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
