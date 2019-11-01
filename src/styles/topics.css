@@ -2,12 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(159, 167, 197);
+  background: rgb(173, 173, 173);
   width: 20%;
   min-height: 100vh;
   padding: 10px;
 }
-
 .link {
   text-decoration: none;
   font-size: 20px;
@@ -19,4 +18,28 @@
   padding: 0;
   margin: 0;
   font-family: sans-serif;
+}
+
+@media screen and (max-width: 575px) {
+  .topicList {
+    min-width: fit-content;
+    min-height: fit-content;
+  }
+  .topics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .topics p {
+    display: none;
+    height: 0;
+    margin: 0;
+  }
+  .topics h4 {
+    font-size: 15px;
+  }
+  .topicList button {
+    display: none;
+  }
 }

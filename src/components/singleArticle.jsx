@@ -4,18 +4,26 @@ import "../styles/singleArticle.css";
 import * as api from "../utils/api";
 import Comments from "./comments.jsx";
 import Voter from "./voter.jsx";
+import ErrorPage from "./errorPage.jsx";
 
 class SingleArticle extends Component {
   state = {
     article: {},
     isLoading: true,
-    commentChanged: false
+    commentChanged: false,
+    error: null
   };
 
   componentDidMount() {
-    api.getArticleById(this.props.article_id).then(article => {
-      this.setState({ article, isLoading: false });
-    });
+    api
+      .getArticleById(this.props.article_id)
+      .then(article => {
+        this.setState({ article, isLoading: false, error: null });
+      })
+      .catch(err => {
+        console.dir(err);
+        this.setState({ error: err.response.data.msg });
+      });
   }
   // commentChanged = () => {
   //   this.setState({ commentChanged: true });
@@ -40,55 +48,58 @@ class SingleArticle extends Component {
   // }
 
   render() {
-    const { article, isLoading } = this.state;
-    return (
-      <div className="singleArticle">
-        <div className="articleMain">
-          <h2>{article.title}</h2>
-          {isLoading ? (
-            <p className="loading">Loading ...</p>
-          ) : (
-            <div>
-              <div className="articleHeadings">
-                <div>
-                  <p>Author: {article.author}</p>
-                  <p>Date: {article.created_at}</p>
+    const { article, isLoading, error } = this.state;
+    if (error) {
+      return <ErrorPage error={error} />;
+    } else
+      return (
+        <div className="singleArticle">
+          <div className="articleMain">
+            <h2>{article.title}</h2>
+            {isLoading ? (
+              <p className="loading">Loading ...</p>
+            ) : (
+              <div>
+                <div className="articleHeadings">
+                  <div>
+                    <p>Author: {article.author}</p>
+                    <p>Date: {article.created_at}</p>
+                  </div>
+                  <div>
+                    <p></p>
+                    <p>Topic: {article.topic}</p>
+                  </div>
                 </div>
-                <div>
-                  <p></p>
-                  <p>Topic: {article.topic}</p>
+                <div className="articleBody">
+                  <p>{article.body}</p>
                 </div>
-              </div>
-              <div className="articleBody">
-                <p>{article.body}</p>
-              </div>
 
-              <div className="articleFooter">
-                <div>
-                  <p>{article.comment_count} comments</p>
-                  <Link to={"comments"}>
-                    <button>View Comments</button>
-                  </Link>
+                <div className="articleFooter">
+                  <div>
+                    <p>{article.comment_count} comments</p>
+                    <Link to={"comments"}>
+                      <button>View Comments</button>
+                    </Link>
+                  </div>
+                  <Voter
+                    type="article"
+                    id={article.article_id}
+                    votes={article.votes}
+                  />
                 </div>
-                <Voter
-                  type="article"
-                  id={article.article_id}
-                  votes={article.votes}
-                />
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          <Router>
+            <Comments
+              loggedInUser={this.props.loggedInUser}
+              path="comments"
+              article_id={article.article_id}
+              updateCommentCount={this.updateCommentCount}
+            />
+          </Router>
         </div>
-        <Router>
-          <Comments
-            loggedInUser={this.props.loggedInUser}
-            path="comments"
-            article_id={article.article_id}
-            updateCommentCount={this.updateCommentCount}
-          />
-        </Router>
-      </div>
-    );
+      );
   }
 }
 

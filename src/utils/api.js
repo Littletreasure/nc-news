@@ -27,7 +27,6 @@ export const getArticleById = article_id => {
 };
 
 export const getCommentsByArticleId = (article_id, sort_by, order) => {
-  console.log(order);
   return axios
     .get(
       `https://ruths-nc-news.herokuapp.com/api/articles/${article_id}/comments`,

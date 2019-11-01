@@ -10,7 +10,8 @@ class ArticleList extends Component {
     isLoading: true,
     sort_by: "created_at",
     order: "desc",
-    author: ""
+    author: "",
+    error: null
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,9 +22,14 @@ class ArticleList extends Component {
     const filtertopic = prevProps.topic !== topic;
     const filterauthor = prevState.author !== author;
     if (changesort || changeorder || filtertopic || filterauthor) {
-      api.getArticles(sort_by, order, topic, author).then(articles => {
-        this.setState({ articles, isLoading: false });
-      });
+      api
+        .getArticles(sort_by, order, topic, author)
+        .then(articles => {
+          this.setState({ articles, isLoading: false });
+        })
+        .catch(err => {
+          console.dir(err);
+        });
     }
   }
   componentDidMount() {

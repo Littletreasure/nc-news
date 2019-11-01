@@ -10,8 +10,8 @@
   color: white;
   font-size: 60px;
   font-family: fantasy;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .date {
   color: white;
@@ -20,7 +20,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 40px;
+  align-items: center;
+  height: 35px;
 }
 .home {
   font-size: 15px;
@@ -32,4 +33,18 @@
 }
 .error {
   color: white;
+}
+@media screen and (max-width: 575px) {
+  .header h1 {
+    font-size: 30px;
+  }
+  .header div {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 }

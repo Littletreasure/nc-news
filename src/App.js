@@ -5,6 +5,7 @@ import Header from "./components/header.jsx";
 import Topics from "./components/topics.jsx";
 import ArticleList from "./components/articleList.jsx";
 import SingleArticle from "./components/singleArticle.jsx";
+import ErrorPage from "./components/errorPage.jsx";
 import * as api from "./utils/api";
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
                     loggedInUser={loggedInUser}
                     path="/articles/:article_id/*"
                   />
+                  <ErrorPage default />
                 </Router>
               </div>
             </div>

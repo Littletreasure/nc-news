@@ -3,15 +3,18 @@
   flex-direction: column;
   /* align-items: stretch; */
   justify-content: center;
-  background: rgb(180, 180, 209);
+  background: rgb(208, 208, 208);
 }
 .articleMain {
   padding: 0px 10px 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-style: solid;
+  border-style: none;
   margin: 10px;
+  border-radius: 15px;
+  background-color: rgb(190, 190, 190);
+  box-shadow: 5px 5px rgb(87, 86, 86);
 }
 .articleHeadings {
   display: flex;

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  background: rgb(191, 198, 207);
+  background: rgb(155, 155, 155);
 }
 .articleList h2 {
   align-self: center;
@@ -11,10 +11,12 @@
 .articleCard {
   display: flex;
   justify-content: space-between;
-  border-style: solid;
+  border-style: none;
   margin: 10px;
-  border-color: rgb(126, 123, 125);
+  background-color: rgb(204, 204, 204);
   padding: 10px;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgb(87, 86, 86);
 }
 .loading {
   align-self: center;
