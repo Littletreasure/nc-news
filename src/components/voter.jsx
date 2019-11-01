@@ -5,7 +5,9 @@ class Voter extends Component {
   state = {
     type: null,
     id: null,
-    votes: null
+    votes: null,
+    votedArticle: null,
+    votedComment: null
   };
   componentDidMount() {
     const { type, id, votes } = this.props;
@@ -13,19 +15,27 @@ class Voter extends Component {
   }
 
   voteClick = event => {
-    const { type, id, votes } = this.state;
+    const { type, id, votes, votedArticle, votedComment } = this.state;
+    const { loggedInUser } = this.props;
     let vote;
+
     if (event.target.className === "voteminus") {
       vote = -1;
     } else vote = 1;
 
-    if (type === "article") {
+    if (type === "article" && votedArticle !== loggedInUser) {
       api.updateArticleVote(id, vote).then(article => {
-        this.setState({ votes: votes + vote });
+        this.setState({
+          votes: votes + vote,
+          votedArticle: this.props.loggedInUser
+        });
       });
-    } else {
+    } else if (type === "comment" && votedComment !== loggedInUser) {
       api.updateCommentVote(id, vote).then(comment => {
-        this.setState({ votes: votes + vote });
+        this.setState({
+          votes: votes + vote,
+          votedComment: this.props.loggedInUser
+        });
       });
     }
   };

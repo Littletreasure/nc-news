@@ -3,6 +3,7 @@ import "../styles/header.css";
 import { Link } from "@reach/router";
 import LoginForm from "./loginForm";
 import LogOutForm from "./logOutForm";
+import logo from "../Northcoders.png";
 
 class Header extends Component {
   state = {
@@ -27,9 +28,12 @@ class Header extends Component {
     } = this.props;
     return (
       <header className="header">
-        <Link to="/">
-          <button className="home">Home</button>
-        </Link>
+        <div className="logohome">
+          <img src={logo}></img>
+          <Link to="/">
+            <button className="home">Home</button>
+          </Link>
+        </div>
         <h1>NC-News</h1>
         <div>
           <p className="date">{new Date().toDateString()}</p>
