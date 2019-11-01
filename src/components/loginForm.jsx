@@ -17,7 +17,11 @@ class LoginForm extends Component {
   render() {
     return (
       <form id="in" onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleChange}></input>
+        <input
+          placeholder="lurker"
+          type="text"
+          onChange={this.handleChange}
+        ></input>
         <button type="submit">Log In</button>
       </form>
     );

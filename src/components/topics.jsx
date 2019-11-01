@@ -24,6 +24,7 @@ class Topics extends Component {
 
   render() {
     const { topics, isLoading, topicForm } = this.state;
+    const { loggedInUser } = this.props;
     return (
       <div className="topicList">
         <h3>Topics</h3>
@@ -44,9 +45,12 @@ class Topics extends Component {
             })}
           </div>
         )}
-
-        <button onClick={this.showAddTopic}>Add Topic</button>
-        {!topicForm ? null : <AddTopic addNewTopic={this.addNewTopic} />}
+        {loggedInUser ? (
+          <div>
+            <button onClick={this.showAddTopic}>Add Topic</button>
+            {!topicForm ? null : <AddTopic addNewTopic={this.addNewTopic} />}
+          </div>
+        ) : null}
       </div>
     );
   }

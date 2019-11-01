@@ -11,7 +11,8 @@ class SingleArticle extends Component {
     article: {},
     isLoading: true,
     commentChanged: false,
-    error: null
+    error: null,
+    errStatus: null
   };
 
   componentDidMount() {
@@ -21,13 +22,12 @@ class SingleArticle extends Component {
         this.setState({ article, isLoading: false, error: null });
       })
       .catch(err => {
-        console.dir(err);
-        this.setState({ error: err.response.data.msg });
+        this.setState({
+          error: err.response.data.msg,
+          errStatus: err.response.status
+        });
       });
   }
-  // commentChanged = () => {
-  //   this.setState({ commentChanged: true });
-  // };
 
   updateCommentCount = num => {
     const { comment_count } = this.state.article;
@@ -37,20 +37,10 @@ class SingleArticle extends Component {
     this.setState({ article: newArticle });
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { comment_count } = this.state.article;
-  //   const changecomment = prevState.article.comment_count !== comment_count;
-  //   if (changecomment) {
-  //     api.getArticleById(this.props.article_id).then(article => {
-  //       this.setState({ article, isLoading: false });
-  //     });
-  //   }
-  // }
-
   render() {
-    const { article, isLoading, error } = this.state;
+    const { article, isLoading, error, errStatus } = this.state;
     if (error) {
-      return <ErrorPage error={error} />;
+      return <ErrorPage error={error} errStatus={errStatus} />;
     } else
       return (
         <div className="singleArticle">
@@ -85,6 +75,7 @@ class SingleArticle extends Component {
                     type="article"
                     id={article.article_id}
                     votes={article.votes}
+                    loggedInUser={this.props.loggedInUser}
                   />
                 </div>
               </div>

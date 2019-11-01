@@ -50,7 +50,7 @@ class App extends Component {
               logOutUser={this.logOutUser}
             />
             <div className="body">
-              <Topics />
+              <Topics loggedInUser={loggedInUser} />
               <div className="content">
                 <Router>
                   <ArticleList path="/" users={users} />

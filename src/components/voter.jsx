@@ -32,16 +32,21 @@ class Voter extends Component {
 
   render() {
     const { id, votes } = this.state;
+    const { loggedInUser } = this.props;
     return (
       <div>
         <p>{votes} votes</p>
-        <button className={`voteminus`} id={id} onClick={this.voteClick}>
-          -
-        </button>{" "}
-        Vote{" "}
-        <button className={`voteplus`} id={id} onClick={this.voteClick}>
-          +
-        </button>
+        {loggedInUser ? (
+          <div>
+            <button className={`voteminus`} id={id} onClick={this.voteClick}>
+              -
+            </button>{" "}
+            Vote{" "}
+            <button className={`voteplus`} id={id} onClick={this.voteClick}>
+              +
+            </button>{" "}
+          </div>
+        ) : null}
       </div>
     );
   }

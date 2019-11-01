@@ -3,6 +3,7 @@ import "../styles/articleList.css";
 import { Link } from "@reach/router";
 import * as api from "../utils/api";
 import ArticleDropDownBox from "./articleDropDownBox";
+import ErrorPage from "./errorPage.jsx";
 
 class ArticleList extends Component {
   state = {
@@ -11,7 +12,8 @@ class ArticleList extends Component {
     sort_by: "created_at",
     order: "desc",
     author: "",
-    error: null
+    error: null,
+    errStatus: null
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -25,17 +27,30 @@ class ArticleList extends Component {
       api
         .getArticles(sort_by, order, topic, author)
         .then(articles => {
-          this.setState({ articles, isLoading: false });
+          this.setState({ articles, isLoading: false, error: null });
         })
         .catch(err => {
-          console.dir(err);
+          this.setState({
+            error: err.response.data.msg,
+            errStatus: err.response.status
+          });
         });
     }
   }
   componentDidMount() {
-    api.getArticles().then(articles => {
-      this.setState({ articles, isLoading: false });
-    });
+    const { sort_by, order, author } = this.state;
+    const { topic } = this.props;
+    api
+      .getArticles(sort_by, order, topic, author)
+      .then(articles => {
+        this.setState({ articles, isLoading: false, error: null });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.response.data.msg,
+          errStatus: err.response.status
+        });
+      });
   }
   changeAuthor = author => {
     this.setState({ author: author });
@@ -47,44 +62,49 @@ class ArticleList extends Component {
     this.setState({ order: order });
   };
   render() {
-    const { isLoading, articles } = this.state;
-    return (
-      <div className="articleList">
-        <h2>Articles</h2>
+    const { isLoading, articles, error, errStatus } = this.state;
+    if (error) {
+      return <ErrorPage error={error} errStatus={errStatus} />;
+    } else
+      return (
+        <div className="articleList">
+          <h2>Articles</h2>
 
-        {isLoading ? (
-          <p className="loading">Loading ...</p>
-        ) : (
-          <div>
-            <ArticleDropDownBox
-              sortBy={this.sortBy}
-              changeOrder={this.changeOrder}
-              changeAuthor={this.changeAuthor}
-              authors={this.props.users}
-            />
-            {articles.map(article => {
-              return (
-                <div key={article.article_id} className="articleCard">
-                  <div>
-                    <p>
-                      Title:{" "}
-                      <Link to={`/articles/${article.article_id}`}>
-                        {article.title}
-                      </Link>
-                    </p>
-                    <p>Topic: {article.topic}</p>
+          {isLoading ? (
+            <p className="loading">Loading ...</p>
+          ) : (
+            <div>
+              <ArticleDropDownBox
+                sortBy={this.sortBy}
+                changeOrder={this.changeOrder}
+                changeAuthor={this.changeAuthor}
+                authors={this.props.users}
+              />
+              {articles.map(article => {
+                return (
+                  <div key={article.article_id} className="articleCard">
+                    <div>
+                      <p>
+                        Title:{" "}
+                        <Link to={`/articles/${article.article_id}`}>
+                          {article.title}
+                        </Link>
+                      </p>
+                      <p>Topic: {article.topic}</p>
+                    </div>
+                    <div>
+                      <p>Author: {article.author}</p>
+                      <p>
+                        Date: {new Date(article.created_at).toLocaleString()}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p>Author: {article.author}</p>
-                    <p>Date: {new Date(article.created_at).toLocaleString()}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    );
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
   }
 }
 

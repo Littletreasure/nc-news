@@ -97,6 +97,7 @@ class Comments extends Component {
                       type="comment"
                       id={comment.comment_id}
                       votes={comment.votes}
+                      loggedInUser={this.props.loggedInUser}
                     />
                     {this.props.loggedInUser !== comment.author ? null : (
                       <button

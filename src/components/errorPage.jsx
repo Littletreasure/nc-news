@@ -5,11 +5,16 @@ class ErrorPage extends Component {
     return (
       <div>
         <center>
-          <h1>Error</h1>
           {this.props.error ? (
-            <h2>{this.props.error}</h2>
+            <div>
+              <h1>{this.props.errStatus} Error</h1>
+              <h2>{this.props.error}</h2>
+            </div>
           ) : (
-            <h2>Page not found</h2>
+            <div>
+              <h1>404 Error</h1>
+              <h2>Page not found</h2>
+            </div>
           )}
         </center>
       </div>
