@@ -24,6 +24,7 @@
   .topicList {
     min-width: fit-content;
     min-height: fit-content;
+    width: 100%;
   }
   .topics {
     display: flex;
@@ -39,7 +40,4 @@
   .topics h4 {
     font-size: 15px;
   }
-  /* .topicList button {
-    display: none;
-  } */
 }

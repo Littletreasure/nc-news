@@ -29,7 +29,7 @@ class Header extends Component {
     return (
       <header className="header">
         <div className="logohome">
-          <img src={logo}></img>
+          <img src={logo} alt="logo"></img>
           <Link to="/">
             <button className="home">Home</button>
           </Link>

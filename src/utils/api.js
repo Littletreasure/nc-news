@@ -30,7 +30,7 @@ export const getCommentsByArticleId = (article_id, sort_by, order) => {
   return axios
     .get(
       `https://ruths-nc-news.herokuapp.com/api/articles/${article_id}/comments`,
-      { params: sort_by, order }
+      { params: { sort_by, order } }
     )
     .then(response => {
       return response.data.comments;
@@ -44,18 +44,6 @@ export const getUsers = () => {
       return response.data.users;
     });
 };
-// export const getUsersByName = name => {
-//   return axios
-//     .get(`https://ruths-nc-news.herokuapp.com/api/users/${name}`)
-//     .then(response => {
-//       return response.data.user;
-//     });
-// };
-
-// export const postUser = (user) => {
-//   return axios
-//     .post("https://ruths-nc-news.herokuapp.com/api/users", {})
-// }
 export const updateArticleVote = (id, vote) => {
   return axios
     .patch(`https://ruths-nc-news.herokuapp.com/api/articles/${id}`, {
