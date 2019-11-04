@@ -26,7 +26,7 @@ class App extends Component {
   loginUser = user => {
     const { users } = this.state;
     if (users.findIndex(item => item.username === user) !== -1) {
-      this.setState({ loggedInUser: user, loggedIn: true });
+      this.setState({ loggedInUser: user, loggedIn: true, loginError: false });
     } else {
       this.setState({ loginError: true });
     }

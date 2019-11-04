@@ -3,26 +3,23 @@ import * as api from "../utils/api";
 
 class Voter extends Component {
   state = {
-    type: null,
-    id: null,
     votes: null,
     votedArticle: null,
     votedComment: null
   };
+
   componentDidMount() {
-    const { type, id, votes } = this.props;
-    this.setState({ type, id, votes });
+    const { votes } = this.props;
+    this.setState({ votes });
   }
 
   voteClick = event => {
-    const { type, id, votes, votedArticle, votedComment } = this.state;
-    const { loggedInUser } = this.props;
+    const { votes, votedArticle, votedComment } = this.state;
+    const { loggedInUser, type, id } = this.props;
     let vote;
-
     if (event.target.className === "voteminus") {
       vote = -1;
     } else vote = 1;
-
     if (type === "article" && votedArticle !== loggedInUser) {
       api.updateArticleVote(id, vote).then(article => {
         this.setState({
@@ -41,8 +38,8 @@ class Voter extends Component {
   };
 
   render() {
-    const { id, votes } = this.state;
-    const { loggedInUser } = this.props;
+    const { votes } = this.state;
+    const { loggedInUser, id } = this.props;
     return (
       <div>
         <p>{votes} votes</p>

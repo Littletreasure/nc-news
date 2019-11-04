@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
+import "../styles/topics.css";
 
 class AddTopic extends Component {
   state = {
@@ -22,17 +23,21 @@ class AddTopic extends Component {
   render() {
     return (
       <div>
-        <p></p>
         <form onSubmit={this.handleSubmit}>
           <label>
             Slug:
-            <input id="slug" type="text" onChange={this.handleChange}></input>
+            <input
+              className="addTopicForm"
+              id="slug"
+              type="text"
+              onChange={this.handleChange}
+            ></input>
           </label>
           <label>
             Description:
             <input id="desc" type="text" onChange={this.handleChange}></input>
           </label>
-          <input type="submit"></input>
+          <input className="addTopicForm" type="submit"></input>
         </form>
       </div>
     );

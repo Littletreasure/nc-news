@@ -27,15 +27,20 @@ class AddComment extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>Username: {this.props.loggedInUser}</label>
-          <p></p>
-          <label className="commenttext">
-            Comment:
-            <input type="text" size="80" onChange={this.handleChange}></input>
-            <p></p>
-          </label>
+          <div className="commenttext">
+            <label>
+              Comment:
+              <input
+                type="text"
+                size="80"
+                value={this.state.comment}
+                onChange={this.handleChange}
+                required
+              ></input>
+            </label>
+          </div>
           <button type="submit">Add Comment</button>
         </form>
-        <p></p>
       </div>
     );
   }

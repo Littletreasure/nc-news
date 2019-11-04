@@ -3,6 +3,7 @@ import "../styles/header.css";
 
 class LogOutForm extends Component {
   handleSubmit = event => {
+    event.preventDefault();
     this.props.logOutUser();
   };
   render() {

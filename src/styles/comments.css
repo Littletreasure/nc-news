@@ -42,10 +42,14 @@
 .commentButtons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  margin-top: 20px;
 }
 
 .delete {
   justify-self: self-end;
+}
+.commenttext {
+  margin: 20px 0px;
 }

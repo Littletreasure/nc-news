@@ -11,14 +11,14 @@ class LoginForm extends Component {
   };
   handleSubmit = event => {
     event.preventDefault();
-
     this.props.loginUser(this.state.user);
   };
   render() {
     return (
-      <form id="in" onSubmit={this.handleSubmit}>
+      <form className="login" id="in" onSubmit={this.handleSubmit}>
+        e.g. 'jessjelly'
         <input
-          placeholder="e.g. 'jessjelly'"
+          className="loginInput"
           type="text"
           onChange={this.handleChange}
         ></input>

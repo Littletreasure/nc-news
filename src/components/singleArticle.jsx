@@ -10,7 +10,6 @@ class SingleArticle extends Component {
   state = {
     article: {},
     isLoading: true,
-    commentChanged: false,
     error: null,
     errStatus: null
   };
@@ -56,7 +55,6 @@ class SingleArticle extends Component {
                     <p>Date: {article.created_at}</p>
                   </div>
                   <div>
-                    <p></p>
                     <p>Topic: {article.topic}</p>
                   </div>
                 </div>

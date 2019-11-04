@@ -4,6 +4,7 @@ import * as api from "../utils/api";
 import Voter from "./voter.jsx";
 import AddComment from "./addComment.jsx";
 import CommentDropDownBox from "./commentDropDownBox.jsx";
+import ErrorPage from "./errorPage.jsx";
 
 class Comments extends Component {
   state = {
@@ -11,43 +12,68 @@ class Comments extends Component {
     isLoading: true,
     commentForm: false,
     sort_by: "created_at",
-    order: "desc"
+    order: "desc",
+    error: null,
+    errStatus: null
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { sort_by, order } = this.state;
+    const { article_id } = this.props;
     const changesort = prevState.sort_by !== sort_by;
     const changeorder = prevState.order !== order;
     if (changesort || changeorder) {
       api
-        .getCommentsByArticleId(this.props.article_id, sort_by, order)
+        .getCommentsByArticleId(article_id, sort_by, order)
         .then(comments => {
           this.setState({ comments, isLoading: false });
+        })
+        .catch(err => {
+          this.setState({
+            error: err.response.data.msg,
+            errStatus: err.response.status
+          });
         });
     }
   }
-
   componentDidMount() {
-    api.getCommentsByArticleId(this.props.article_id).then(comments => {
-      this.setState({ comments, isLoading: false });
-    });
+    const { article_id } = this.props;
+    api
+      .getCommentsByArticleId(article_id)
+      .then(comments => {
+        this.setState({ comments, isLoading: false });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.response.data.msg,
+          errStatus: err.response.status
+        });
+      });
   }
   addNewComment = ({ comment }) => {
-    this.setState({
-      comments: [comment, ...this.state.comments]
+    this.setState(currentState => {
+      return { comments: [comment, ...currentState.comments] };
     });
     this.props.updateCommentCount(1);
   };
 
   handleDeleteClick = event => {
     const id = parseInt(event.target.id, 10);
-    api.deleteComment(event.target.id).then(response => {
-      const newComments = this.state.comments.filter(comment => {
-        return comment.comment_id !== id;
+    api
+      .deleteComment(event.target.id)
+      .then(response => {
+        const newComments = this.state.comments.filter(comment => {
+          return comment.comment_id !== id;
+        });
+        this.setState({ comments: newComments });
+        this.props.updateCommentCount(-1);
+      })
+      .catch(err => {
+        this.setState({
+          error: err.response.data.msg,
+          errStatus: err.response.status
+        });
       });
-      this.setState({ comments: newComments });
-      this.props.updateCommentCount(-1);
-    });
   };
 
   sortBy = sort_by => {
@@ -58,64 +84,67 @@ class Comments extends Component {
   };
 
   render() {
-    const { comments, isLoading } = this.state;
+    const { comments, isLoading, error, errStatus } = this.state;
+    if (error) {
+      return <ErrorPage error={error} errStatus={errStatus} />;
+    } else
+      return (
+        <div className="comments">
+          <h3>Comments</h3>
+          {!this.props.loggedInUser ? null : (
+            <AddComment
+              addNewComment={this.addNewComment}
+              article_id={this.props.article_id}
+              loggedInUser={this.props.loggedInUser}
+            />
+          )}
 
-    return (
-      <div className="comments">
-        <h3>Comments</h3>
-        {!this.props.loggedInUser ? null : (
-          <AddComment
-            addNewComment={this.addNewComment}
-            article_id={this.props.article_id}
-            loggedInUser={this.props.loggedInUser}
-          />
-        )}
-
-        {isLoading ? (
-          <p className="loading">Loading ...</p>
-        ) : (
-          <div>
-            <div className="commentButtons">
-              <p></p>
-              <CommentDropDownBox
-                sortBy={this.sortBy}
-                changeOrder={this.changeOrder}
-              />
-            </div>
-            {comments.map(comment => {
-              return (
-                <div key={comment.comment_id} className="commentCard">
-                  <div className="commentHeader">
-                    <p>Author: {comment.author}</p>
-                    <p>Date: {new Date(comment.created_at).toLocaleString()}</p>
-                  </div>
-                  <div className="commentBody">
-                    <p>Comment: {comment.body}</p>
-                  </div>
-                  <div className="commentFooter">
-                    <Voter
-                      type="comment"
-                      id={comment.comment_id}
-                      votes={comment.votes}
-                      loggedInUser={this.props.loggedInUser}
-                    />
-                    {this.props.loggedInUser !== comment.author ? null : (
-                      <button
+          {isLoading ? (
+            <p className="loading">Loading ...</p>
+          ) : (
+            <div>
+              <div className="commentButtons">
+                <CommentDropDownBox
+                  sortBy={this.sortBy}
+                  changeOrder={this.changeOrder}
+                />
+              </div>
+              {comments.map(comment => {
+                return (
+                  <section key={comment.comment_id} className="commentCard">
+                    <div className="commentHeader">
+                      <p>Author: {comment.author}</p>
+                      <p>
+                        Date: {new Date(comment.created_at).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="commentBody">
+                      <p>Comment: {comment.body}</p>
+                    </div>
+                    <div className="commentFooter">
+                      <Voter
+                        type="comment"
                         id={comment.comment_id}
-                        onClick={this.handleDeleteClick}
-                        className="delete"
-                      >
-                        Delete
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    );
+                        votes={comment.votes}
+                        loggedInUser={this.props.loggedInUser}
+                      />
+                      {this.props.loggedInUser !== comment.author ? null : (
+                        <button
+                          id={comment.comment_id}
+                          onClick={this.handleDeleteClick}
+                          className="delete"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
   }
 }
 
