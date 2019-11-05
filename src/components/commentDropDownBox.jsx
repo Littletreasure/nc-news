@@ -19,14 +19,13 @@ function CommentDropDownBox(props) {
             <option value="author">Author</option>
           </select>
         </label>
-
         <label>
           <input
             type="radio"
             name="order"
             value="asc"
             onChange={handleChange}
-          />{" "}
+          />
           asc
         </label>
         <label>
@@ -35,7 +34,7 @@ function CommentDropDownBox(props) {
             name="order"
             value="desc"
             onChange={handleChange}
-          />{" "}
+          />
           desc
         </label>
       </div>

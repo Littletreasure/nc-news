@@ -28,7 +28,7 @@ function ArticleDropDownBox(props) {
             name="order"
             value="asc"
             onChange={handleChange}
-          />{" "}
+          />
           asc
         </label>
         <label>
@@ -37,13 +37,12 @@ function ArticleDropDownBox(props) {
             name="order"
             value="desc"
             onChange={handleChange}
-          />{" "}
+          />
           desc
         </label>
       </div>
       <div>
         <label>
-          {" "}
           Filter by author:
           <select name="filter" id="filter" onChange={handleChange}>
             <option value="">all</option>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
+import "../styles/App.css";
 
 class Voter extends Component {
   state = {
@@ -44,14 +45,14 @@ class Voter extends Component {
       <div>
         <p>{votes} votes</p>
         {loggedInUser ? (
-          <div>
+          <div className="vote">
             <button className={`voteminus`} id={id} onClick={this.voteClick}>
               -
-            </button>{" "}
-            Vote{" "}
+            </button>
+            Vote
             <button className={`voteplus`} id={id} onClick={this.voteClick}>
               +
-            </button>{" "}
+            </button>
           </div>
         ) : null}
       </div>

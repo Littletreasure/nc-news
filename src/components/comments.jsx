@@ -98,7 +98,6 @@ class Comments extends Component {
               loggedInUser={this.props.loggedInUser}
             />
           )}
-
           {isLoading ? (
             <p className="loading">Loading ...</p>
           ) : (

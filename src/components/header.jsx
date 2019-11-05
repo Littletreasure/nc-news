@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../styles/header.css";
 import { Link } from "@reach/router";
 import LoginForm from "./loginForm";

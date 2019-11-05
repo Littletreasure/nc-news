@@ -46,9 +46,11 @@ class Topics extends Component {
           <h3>Topics</h3>
           {isLoading ? null : (
             <div className="topics">
-              <Link className="link" to="/articles">
-                <h4 key="all">all</h4>
-              </Link>
+              <div>
+                <Link className="link" to="/articles">
+                  <h4 key="all">all</h4>
+                </Link>
+              </div>
               {topics.map(topic => {
                 return (
                   <div key={topic.slug}>

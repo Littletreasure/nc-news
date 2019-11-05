@@ -61,7 +61,6 @@ class SingleArticle extends Component {
                 <div className="articleBody">
                   <p>{article.body}</p>
                 </div>
-
                 <div className="articleFooter">
                   <div>
                     <p>{article.comment_count} comments</p>

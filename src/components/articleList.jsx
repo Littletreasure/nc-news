@@ -69,7 +69,6 @@ class ArticleList extends Component {
       return (
         <div className="articleList">
           <h2>Articles</h2>
-
           {isLoading ? (
             <p className="loading">Loading ...</p>
           ) : (
