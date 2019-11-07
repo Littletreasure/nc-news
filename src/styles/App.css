@@ -27,3 +27,11 @@
 .vote button {
   margin: 0px 5px;
 }
+.voteForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.voteForm p {
+  margin-bottom: 5px;
+}

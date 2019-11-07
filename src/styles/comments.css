@@ -36,9 +36,6 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.commentFooter button {
-  align-self: flex-start;
-}
 .commentButtons {
   display: flex;
   flex-direction: row;
@@ -48,7 +45,8 @@
 }
 
 .delete {
-  justify-self: self-end;
+  align-self: flex-end;
+  height: 20px;
 }
 .commenttext {
   margin: 20px 0px;
