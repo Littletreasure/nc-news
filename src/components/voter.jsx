@@ -4,46 +4,47 @@ import "../styles/App.css";
 
 class Voter extends Component {
   state = {
-    votes: null,
+    voteChange: 0,
     votedArticle: null,
-    votedComment: null
+    votedComment: null,
+    alreadyVoted: null
   };
 
-  componentDidMount() {
-    const { votes } = this.props;
-    this.setState({ votes });
-  }
-
   voteClick = event => {
-    const { votes, votedArticle, votedComment } = this.state;
+    const { votedArticle, votedComment } = this.state;
     const { loggedInUser, type, id } = this.props;
     let vote;
     if (event.target.className === "voteminus") {
       vote = -1;
     } else vote = 1;
     if (type === "article" && votedArticle !== loggedInUser) {
-      api.updateArticleVote(id, vote).then(article => {
-        this.setState({
-          votes: votes + vote,
-          votedArticle: this.props.loggedInUser
-        });
+      api.updateArticleVote(id, vote);
+      this.setState({
+        voteChange: vote,
+        votedArticle: this.props.loggedInUser,
+        alreadyVoted: null
       });
     } else if (type === "comment" && votedComment !== loggedInUser) {
-      api.updateCommentVote(id, vote).then(comment => {
-        this.setState({
-          votes: votes + vote,
-          votedComment: this.props.loggedInUser
-        });
+      api.updateCommentVote(id, vote);
+      this.setState({
+        voteChange: vote,
+        votedComment: this.props.loggedInUser,
+        alreadyVoted: null
       });
+    } else if (
+      (type === "article" && votedArticle === loggedInUser) ||
+      (type === "comment" && votedComment === loggedInUser)
+    ) {
+      this.setState({ alreadyVoted: "Only 1 vote allowed" });
     }
   };
 
   render() {
-    const { votes } = this.state;
-    const { loggedInUser, id } = this.props;
+    const { voteChange, alreadyVoted } = this.state;
+    const { loggedInUser, id, votes } = this.props;
     return (
-      <div>
-        <p>{votes} votes</p>
+      <div className="voteForm">
+        <p>{votes + voteChange} votes</p>
         {loggedInUser ? (
           <div className="vote">
             <button className={`voteminus`} id={id} onClick={this.voteClick}>
@@ -53,6 +54,7 @@ class Voter extends Component {
             <button className={`voteplus`} id={id} onClick={this.voteClick}>
               +
             </button>
+            {alreadyVoted}
           </div>
         ) : null}
       </div>

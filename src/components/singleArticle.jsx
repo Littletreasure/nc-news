@@ -62,18 +62,18 @@ class SingleArticle extends Component {
                   <p>{article.body}</p>
                 </div>
                 <div className="articleFooter">
-                  <div>
-                    <p>{article.comment_count} comments</p>
-                    <Link to={"comments"}>
-                      <button>View Comments</button>
-                    </Link>
-                  </div>
                   <Voter
                     type="article"
                     id={article.article_id}
                     votes={article.votes}
                     loggedInUser={this.props.loggedInUser}
                   />
+                  <div>
+                    <p>{article.comment_count} comments</p>
+                    <Link to={"comments"}>
+                      <button>View Comments</button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             )}

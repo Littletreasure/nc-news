@@ -62,10 +62,12 @@ class Comments extends Component {
     api
       .deleteComment(event.target.id)
       .then(response => {
-        const newComments = this.state.comments.filter(comment => {
-          return comment.comment_id !== id;
+        this.setState(currentState => {
+          const newComments = currentState.comments.filter(comment => {
+            return comment.comment_id !== id;
+          });
+          return { comments: newComments };
         });
-        this.setState({ comments: newComments });
         this.props.updateCommentCount(-1);
       })
       .catch(err => {
