@@ -1,20 +1,12 @@
 import React from "react";
 
 function CommentDropDownBox(props) {
-  const handleChange = event => {
-    if (event.target.id === "sortBy") {
-      props.sortBy(event.target.value);
-    } else if (event.target.name === "order") {
-      props.changeOrder(event.target.value);
-    }
-  };
-
   return (
     <div className="commentDropDownBox">
       <div>
         <label>
           Sort by:
-          <select name="sortBy" id="sortBy" onChange={handleChange}>
+          <select name="sortBy" id="sortBy" onChange={props.handleChange}>
             <option value="created_at">Date</option>
             <option value="author">Author</option>
           </select>
@@ -24,7 +16,7 @@ function CommentDropDownBox(props) {
             type="radio"
             name="order"
             value="asc"
-            onChange={handleChange}
+            onChange={props.handleChange}
           />
           asc
         </label>
@@ -33,7 +25,7 @@ function CommentDropDownBox(props) {
             type="radio"
             name="order"
             value="desc"
-            onChange={handleChange}
+            onChange={props.handleChange}
           />
           desc
         </label>

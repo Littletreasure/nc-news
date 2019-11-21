@@ -52,15 +52,16 @@ class ArticleList extends Component {
         });
       });
   }
-  changeAuthor = author => {
-    this.setState({ author: author });
+
+  handleChange = event => {
+    const { value, id, name } = event.target;
+    if (id === "sortBy") {
+      this.setState({ sort_by: value });
+    } else if (name === "order") {
+      this.setState({ order: value });
+    } else this.setState({ author: value });
   };
-  sortBy = sort_by => {
-    this.setState({ sort_by: sort_by });
-  };
-  changeOrder = order => {
-    this.setState({ order: order });
-  };
+
   render() {
     const { isLoading, articles, error, errStatus } = this.state;
     if (error) {
@@ -74,9 +75,7 @@ class ArticleList extends Component {
           ) : (
             <div>
               <ArticleDropDownBox
-                sortBy={this.sortBy}
-                changeOrder={this.changeOrder}
-                changeAuthor={this.changeAuthor}
+                handleChange={this.handleChange}
                 authors={this.props.users}
               />
               {articles.map(article => {

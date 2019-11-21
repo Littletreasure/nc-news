@@ -78,13 +78,14 @@ class Comments extends Component {
       });
   };
 
-  sortBy = sort_by => {
-    this.setState({ sort_by: sort_by });
+  handleChange = event => {
+    const { id, name, value } = event.target;
+    if (id === "sortBy") {
+      this.setState({ sort_by: value });
+    } else if (name === "order") {
+      this.setState({ order: value });
+    }
   };
-  changeOrder = order => {
-    this.setState({ order: order });
-  };
-
   render() {
     const { comments, isLoading, error, errStatus } = this.state;
     if (error) {
@@ -105,10 +106,7 @@ class Comments extends Component {
           ) : (
             <div>
               <div className="commentButtons">
-                <CommentDropDownBox
-                  sortBy={this.sortBy}
-                  changeOrder={this.changeOrder}
-                />
+                <CommentDropDownBox handleChange={this.handleChange} />
               </div>
               {comments.map(comment => {
                 return (

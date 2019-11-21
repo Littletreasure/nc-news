@@ -1,20 +1,12 @@
 import React from "react";
 
 function ArticleDropDownBox(props) {
-  const handleChange = event => {
-    if (event.target.id === "sortBy") {
-      props.sortBy(event.target.value);
-    } else if (event.target.name === "order") {
-      props.changeOrder(event.target.value);
-    } else props.changeAuthor(event.target.value);
-  };
-
   return (
     <div className="articleDropDownBox">
       <div>
         <label>
           Sort by:
-          <select name="sortBy" id="sortBy" onChange={handleChange}>
+          <select name="sortBy" id="sortBy" onChange={props.handleChange}>
             <option value="created_at">Date</option>
             <option value="title">Title</option>
             <option value="author">Author</option>
@@ -27,7 +19,7 @@ function ArticleDropDownBox(props) {
             type="radio"
             name="order"
             value="asc"
-            onChange={handleChange}
+            onChange={props.handleChange}
           />
           asc
         </label>
@@ -36,7 +28,7 @@ function ArticleDropDownBox(props) {
             type="radio"
             name="order"
             value="desc"
-            onChange={handleChange}
+            onChange={props.handleChange}
           />
           desc
         </label>
@@ -44,7 +36,7 @@ function ArticleDropDownBox(props) {
       <div>
         <label>
           Filter by author:
-          <select name="filter" id="filter" onChange={handleChange}>
+          <select name="filter" id="filter" onChange={props.handleChange}>
             <option value="">all</option>
             {props.authors.map(author => {
               return (
